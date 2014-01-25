@@ -1,0 +1,45 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+{{! The big featured header on the homepage, with the site logo and description }}
+<div data-role="header">
+<header id="site-head" {{#if @blog.cover}}style="background-image: url({{@blog.cover}})"{{/if}}>
+    <div class="vertical">
+        <div id="site-head-content" class="inner">
+
+            {{#if @blog.logo}}<a id="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="Blog Logo" /></a>{{/if}}
+            <h1 class="blog-title">{{@blog.title}}</h1>
+            <h2 class="blog-description">{{@blog.description}}</h2>
+        </div>
+    </div>
+</header>
+</div><!-- /header -->
+
+{{! The main content area on the homepage }}
+<div data-role="content">
+<main class="content" role="main">
+
+<ul data-role="listview" data-inset="true"><!--http://view.jquerymobile.com/1.3.2/dist/demos/examples/listviews/grid-listview.html-->
+    {{! Each post will be output using this markup }}
+    {{#foreach posts}}
+    <li>
+    <article class="{{post_class}}">
+        <header class="post-header">
+            <span class="post-meta"><time datetime="{{date format='YYYY-MM-DD'}}">{{date format="DD MMM YYYY"}}</time> {{#if tags}}on {{tags}}{{/if}}</span>
+            <h2 class="post-title"><a href="{{url}}">{{{title}}}</a></h2>
+
+        </header>
+        <section class="post-excerpt">
+            <p>{{excerpt}}&hellip;</p>
+        </section>
+    </article>
+</li>
+    {{/foreach}}
+</ul>
+    {{!! After all the posts, we have the previous/next pagination links }}
+    {{pagination}}
+
+</main>
+</div><!-- /content -->
